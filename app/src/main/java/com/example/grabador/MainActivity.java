@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -29,25 +30,33 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
-        btn_rec = (Button)findViewById(R.id.btnRec);
+        btn_rec = (Button)findViewById(R.id.btn_rec);
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1000);
+        if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.RECORD_AUDIO}, 1000);
         }
     }
-    public void Rec(View view){
+    public void rec(View view){
         if(grabacion == null){
-            archivoSalida = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Grabacion.mp3";
+            archivoSalida = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Grabacion.3gp";
             grabacion = new MediaRecorder();
             grabacion.setAudioSource(MediaRecorder.AudioSource.MIC);
             grabacion.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             grabacion.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
             grabacion.setOutputFile(archivoSalida);
-
-            try{
+            try {
                 grabacion.prepare();
                 grabacion.start();
-            } catch (IOException e){
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                Toast.makeText(getApplicationContext(), "IllegalStateException called", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                Toast.makeText(getApplicationContext(), "prepare() failed", Toast.LENGTH_SHORT).show();
             }
 
             btn_rec.setBackgroundResource(R.drawable.rec);

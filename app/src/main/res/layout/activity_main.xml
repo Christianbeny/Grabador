@@ -20,27 +20,25 @@
         app:srcCompat="@drawable/android" />
 
     <Button
-        android:id="@+id/btnRec"
+        android:id="@+id/btn_rec"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/stop_rec"
-        android:contentDescription="@string/app_name"
-        android:onClick="Rec"
+        android:onClick="rec"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnPlay"
+        android:id="@+id/btn_play"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginStart="264dp"
         android:layout_marginLeft="264dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/reproducir"
-        android:contentDescription="@string/app_name"
         android:onClick="reproducir"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
